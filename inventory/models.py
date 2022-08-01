@@ -13,11 +13,18 @@ class Book(models.Model):
     pub_year = models.IntegerField()
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
+    
 
     def __str__(self):
         return self.title
     
 
+class Wishlist(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    updated_time = models.DateTimeField(auto_now=True)
     
 
+    def __str__(self):
+        return self.book.title

@@ -51,7 +51,7 @@ class BookViewSet(viewsets.ModelViewSet):
     
 class WishlistViewSet(viewsets.ModelViewSet):
     # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Wishlist.objects.all().order_by('created_time')
     serializer_class = WishlistSerializer
     

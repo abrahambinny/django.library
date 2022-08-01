@@ -13,7 +13,7 @@ class WishlistSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Wishlist
-        fields = ["id", "book", "user"]
+        fields = ["id", "book"]
         
 class UserSerializer(serializers.ModelSerializer):
     

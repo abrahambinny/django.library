@@ -16,14 +16,14 @@ from rest_framework import generics
 from rest_framework import filters
 
 from .models import Book, Wishlist
-from .serializers import BookSerializer, WishlistSerializer, UserSerializer
+from .serializers import BookSerializer, WishlistSerializer, UserSerializer, AvailableSerializer, ReportSerializer
 from inventory.permissions import IsStaffUserAuthenticated
 
 
 
 class UpdateAvailability(viewsets.ModelViewSet):
     queryset = Book.objects.all()
-    serializer_class = BookSerializer
+    serializer_class = AvailableSerializer
     permission_classes = [permissions.IsAdminUser]
 
     def update(self, request, *args, **kwargs):
@@ -67,7 +67,7 @@ class GenerateReportViewSet(viewsets.ModelViewSet):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAdminUser]
     queryset = Wishlist.objects.all().order_by('created_time')
-    serializer_class = WishlistSerializer
+    serializer_class = ReportSerializer
     
     @action(detail=False, methods=["get"])
     def generate(self, request):

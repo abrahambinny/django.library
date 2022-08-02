@@ -1,3 +1,9 @@
+""" Sqlite connection module
+    
+    Description: This module is used to connect to sqlite db and insert the data
+"""
+
+
 import sqlite3
 import csv
 import re

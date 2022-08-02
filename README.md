@@ -286,6 +286,7 @@
                         }
                     ]
                 }
+
     4. `class GenerateReportViewSet(viewsets.ModelViewSet):`
 
         Generate a report on the number of books being rented and how many days they have been rented for.
@@ -342,3 +343,6 @@
         `admin.site.register(Book)`
         `admin.site.register(Wishlist)`
 
+- To run the server
+
+        python manage.py runserver

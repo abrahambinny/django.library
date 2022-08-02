@@ -343,6 +343,17 @@
         `admin.site.register(Book)`
         `admin.site.register(Wishlist)`
 
-- To run the server
+
+- To populate the data into db `sqlite_connection.py`
+
+        python sqlite_connection.py
+
+
+- To run the django server
 
         python manage.py runserver
+
+
+- Written an api consumer file `api_consumer.py` to consume the apis created
+
+        python api_consumer.py

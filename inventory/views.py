@@ -16,6 +16,7 @@ from rest_framework import filters
 
 from .models import Book, Wishlist
 from .serializers import BookSerializer, WishlistSerializer, UserSerializer
+from inventory.permissions import IsStaffUserAuthenticated
 
 
 class BookViewSet(viewsets.ModelViewSet):

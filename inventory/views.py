@@ -1,12 +1,11 @@
+
+# book/inventory/views.py
+
 from django.shortcuts import render
 from django.db.models import Q
 from django.contrib.auth.models import User
 from datetime import datetime
 
-# Create your views here.
-
-
-# book/inventory/views.py
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view
 from rest_framework import status
@@ -20,7 +19,6 @@ from .serializers import BookSerializer, WishlistSerializer, UserSerializer, Ava
 from inventory.permissions import IsStaffUserAuthenticated
 
 
-
 class UpdateAvailability(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = AvailableSerializer
@@ -28,7 +26,6 @@ class UpdateAvailability(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        # print(request.data)
         instance.available = request.data.get("available", False)
         if instance.available == 'true':
             instance.available = True
@@ -79,7 +76,6 @@ class GenerateReportViewSet(viewsets.ModelViewSet):
         return Response({"rented_books": rented_lst}, status=status.HTTP_200_OK)
     
     
-
 class BookViewSet(viewsets.ModelViewSet):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
@@ -92,34 +88,6 @@ class BookViewSet(viewsets.ModelViewSet):
         books_filter = self.get_queryset().filter(Q(title__icontains=self.request.query_params.get('book-search', '')) | Q(author__icontains=self.request.query_params.get('book-search', '')))
         serializer = self.get_serializer(books_filter, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    # @action(detail=False, methods=['post'])
-    # def is_available(self, request, *args, **kwargs):
-    #     book_instance = self.get_object()
-    #     serializer = self.get_serializer(book_instance)
-    #     serializer.save()
-    #     print(request.POST)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    
-    
-    # @action(detail=False, methods=["get"])
-    # def title(self, request):
-    #     books = self.get_queryset().filter(title__icontains=self.request.query_params.get('book-title', ''))
-    #     serializer = self.get_serializer(books, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    # @action(detail=False, methods=["get"])
-    # def author(self, request):
-    #     books = self.get_queryset().filter(author__icontains=self.request.query_params.get('book-author', ''))
-    #     serializer = self.get_serializer(books, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-
-    # @action(detail=False, methods=["get", "post"])
-    # def available(self, request):
-    #     books = self.get_queryset().filter(available=self.request.query_params.get('book-available', ''))
-    #     serializer = self.get_serializer(books, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
     
     
 class WishlistViewSet(viewsets.ModelViewSet):

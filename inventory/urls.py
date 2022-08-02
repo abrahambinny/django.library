@@ -1,3 +1,7 @@
+'''
+API URLs register here
+'''
+
 # book/inventory/urls.py : API urls.py
 
 from django.urls import path, include

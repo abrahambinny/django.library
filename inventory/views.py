@@ -1,6 +1,8 @@
+'''
+API Views to create the views for each and every endpoints
+'''
 
 # book/inventory/views.py
-
 from django.shortcuts import render
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -29,12 +31,22 @@ class BookViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=["get"])
     def search(self, request):
+        ''' 
+        the endpoint 
+        /api/books/search/?book-search=george&format=json 
+        implemented here
+        '''
         books_filter = self.get_queryset().filter(Q(title__icontains=self.request.query_params.get('book-search', '')) | Q(author__icontains=self.request.query_params.get('book-search', '')))
         serializer = self.get_serializer(books_filter, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     
 class WishlistViewSet(viewsets.ModelViewSet):
+    '''
+    The endpoint 
+    /api/wishlist/?format=json
+    implemented here
+    '''
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
     queryset = Wishlist.objects.all().order_by('created_time')
@@ -67,6 +79,13 @@ class UserViewSet(viewsets.ModelViewSet):
     
 
 class UpdateAvailability(viewsets.ModelViewSet):
+    '''
+    the endpoint
+    /api/available/93/?format=json
+    implemented here
+    
+    This will modify the availability of a particular book. And send mail to the users who add this particular book in their wishlist
+    '''
     queryset = Book.objects.all()
     serializer_class = AvailableSerializer
     permission_classes = [permissions.IsAdminUser]
@@ -115,6 +134,13 @@ class GenerateReportViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=["get"])
     def generate(self, request):
+        '''
+        the endpoint 
+        /api/report/generate/?format=json
+        implemented here
+        
+        This generate GET method is used to implement the generate report function. This will generate report on the rented books and their rented date
+        '''
         rented_lst = []
         for item in self.get_queryset():
             if not item.book.available:

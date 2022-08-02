@@ -9,6 +9,7 @@ router.register(r'books', views.BookViewSet)
 router.register(r'wishlist', views.WishlistViewSet)
 router.register(r'users', views.UserViewSet)
 router.register(r'available', views.UpdateAvailability)
+router.register(r'report', views.GenerateReportViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
